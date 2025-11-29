@@ -1,3 +1,5 @@
+use tokio::sync::watch::Ref;
+
 #[derive(Debug, Clone, PartialOrd, PartialEq)]
 pub struct ToxSummarize {
     pub name: String,
@@ -35,4 +37,15 @@ pub struct ToxCompare {
     pub strand: String,
     pub id: String,
     pub namegene: String,
+}
+
+#[derive(Debug, Clone, PartialOrd, PartialEq)]
+pub struct ToxPath {
+    pub filepath1: String,
+    pub filepath2: String,
+}
+
+#[derive(Debug, Clone, PartialOrd, PartialEq)]
+pub struct PathFile {
+    pub inputpath: Ask<Ref<Path>>,
 }

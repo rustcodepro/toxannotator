@@ -1,5 +1,7 @@
 mod args;
+mod proteinplotter;
 mod structtox;
+mod tensor;
 mod tox;
 use crate::args::CommandParse;
 use crate::args::Commands;
@@ -8,6 +10,9 @@ use crate::tox::compare_seq_annotation;
 use crate::tox::toxsummarize;
 use crate::tox::un_compare_seq;
 use clap::Parser;
+
+use self::structtox::PathFile;
+use self::structtox::ToxPath;
 
 /*
 Gaurav Sablok
@@ -33,6 +38,31 @@ fn main() {
                 "The command has finished:{}\t{}\t{}\t{}",
                 toxsummarizer, compareseq_output, compareseqanno_output, uncompareseqoutput
             );
+        }
+        Commands::ProteinPlotter {
+            inputfile1,
+            inputfile2,
+            inputfastafile1,
+            inputfastafile2,
+        } => {
+            let command = ToxPath {
+                filepath1: inputfile1,
+                filepath2: inputfile2,
+            };
+            let proteinplot = command.proteinplotter();
+            let unpacksame = command.unpackseq(inputfastafile1, inputfastafile2).unwrap();
+            let unpacksame = command
+                .unpackseq_diff(inputfastafile1, inputfastafile2)
+                .unwrap();
+            println!("The command has finished:{:?}", command);
+        }
+        Commands::ProteinTensor { inputfile } => {
+            let command = PathFile {
+                inputpath: inputfile,
+            };
+            let _ = command.tensor();
+            let _ = command.padded_tensor();
+            println!("The padded tensor have been written:{:?}", command);
         }
     }
 }
