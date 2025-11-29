@@ -1,5 +1,3 @@
-use tokio::sync::watch::Ref;
-
 #[derive(Debug, Clone, PartialOrd, PartialEq)]
 pub struct ToxSummarize {
     pub name: String,
@@ -47,5 +45,12 @@ pub struct ToxPath {
 
 #[derive(Debug, Clone, PartialOrd, PartialEq)]
 pub struct PathFile {
-    pub inputpath: Ask<Ref<Path>>,
+    pub inputpath: String,
+}
+
+#[derive(Debug, Clone, PartialOrd, PartialEq)]
+pub struct ToxSeq {
+    pub name: String,
+    pub start: usize,
+    pub stop: usize,
 }

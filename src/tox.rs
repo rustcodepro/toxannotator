@@ -209,7 +209,7 @@ pub fn read_fasta<P: AsRef<Path>>(path: P) -> std::io::Result<HashMap<String, Fa
         if line.starts_with('>') {
             if !current_id.is_empty() {
                 records.insert(
-                    current_id.clone().clone().split("|").collect::<Vec<_>>[0].to_string(),
+                    current_id.clone().clone().split("|").collect::<Vec<_>>()[0].to_string(),
                     FastaStruct {
                         id: current_id.clone().split("|").collect::<Vec<_>>()[0].to_string(),
                         seq: current_sequence.clone(),

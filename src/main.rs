@@ -3,6 +3,8 @@ mod proteinplotter;
 mod structtox;
 mod tensor;
 mod tox;
+use self::structtox::PathFile;
+use self::structtox::ToxPath;
 use crate::args::CommandParse;
 use crate::args::Commands;
 use crate::tox::compare_seq;
@@ -10,9 +12,6 @@ use crate::tox::compare_seq_annotation;
 use crate::tox::toxsummarize;
 use crate::tox::un_compare_seq;
 use clap::Parser;
-
-use self::structtox::PathFile;
-use self::structtox::ToxPath;
 
 /*
 Gaurav Sablok
@@ -46,19 +45,22 @@ fn main() {
             inputfastafile2,
         } => {
             let command = ToxPath {
-                filepath1: inputfile1,
-                filepath2: inputfile2,
+                filepath1: inputfile1.clone(),
+                filepath2: inputfile2.clone(),
             };
             let proteinplot = command.proteinplotter();
             let unpacksame = command.unpackseq(inputfastafile1, inputfastafile2).unwrap();
-            let unpacksame = command
+            let unpackdiff = command
                 .unpackseq_diff(inputfastafile1, inputfastafile2)
                 .unwrap();
-            println!("The command has finished:{:?}", command);
+            println!(
+                "The command has finished:{:?}\t{:?}\t{:?}\t{:?}",
+                command, proteinplot, unpacksame, unpackdiff
+            );
         }
         Commands::ProteinTensor { inputfile } => {
             let command = PathFile {
-                inputpath: inputfile,
+                inputpath: inputfile.clone(),
             };
             let _ = command.tensor();
             let _ = command.padded_tensor();
