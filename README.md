@@ -1,7 +1,8 @@
 # toxannotator
 
 - a toxdb annotator for genomic comparison for comparative genomics. 
-- async and parallel threaded. 
+- async and parallel threaded.
+- It has a integrated spanning window algorithm that you can define the window size and it will show the gff compare with in the spanning window. 
 
 ```
 cargo build
