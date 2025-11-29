@@ -12,9 +12,6 @@ use clap::Parser;
 /*
 Gaurav Sablok
 codeprog@icloud.com
-- a smartcore implementation of the node clustering where you ahve the defined
-- nodes and you have the weights defined. It will estimate teh features from the
-- provided nodes file and then will use the weights to implement the cluster.
 */
 
 fn main() {

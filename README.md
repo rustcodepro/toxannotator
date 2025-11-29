@@ -1,4 +1,4 @@
-# toxcompare
+# toxannotator
 
 - a toxdb annotator for genomic comparison for comparative genomics. 
 - async and parallel threaded. 
