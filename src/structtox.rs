@@ -54,3 +54,8 @@ pub struct ToxSeq {
     pub start: usize,
     pub stop: usize,
 }
+
+#[derive(Debug, Clone, PartialOrd, PartialEq)]
+pub struct DNAencoder {
+    pub pathfile: String,
+}

@@ -46,4 +46,15 @@ pub enum Commands {
         /// input file for the tensor
         inputfile: String,
     },
+    /// prepare the encoder for the DNA sequences
+    DNAEncoder {
+        /// input file fasta
+        inputfastafile: String,
+        /// inputdimension
+        inputdim: i64,
+        ///bottleneck dimension
+        bottleneck: i64,
+        /// epochs
+        epochs: i64,
+    },
 }

@@ -1,8 +1,10 @@
 mod args;
+mod encoder;
 mod proteinplotter;
 mod structtox;
 mod tensor;
 mod tox;
+use self::structtox::DNAencoder;
 use self::structtox::PathFile;
 use self::structtox::ToxPath;
 use crate::args::CommandParse;
@@ -65,6 +67,19 @@ fn main() {
             let _ = command.tensor();
             let _ = command.padded_tensor();
             println!("The padded tensor have been written:{:?}", command);
+        }
+        Commands::DNAEncoder {
+            inputfastafile,
+            inputdim,
+            bottleneck,
+            epochs,
+        } => {
+            let filepath = DNAencoder {
+                pathfile: inputfastafile.to_string(),
+            };
+            let command =
+                Some(filepath.run_encoder(inputfastafile, *inputdim, *bottleneck, *epochs));
+            println!("The command has finished:{:?}", command)
         }
     }
 }
