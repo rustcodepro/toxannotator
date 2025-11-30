@@ -3,6 +3,7 @@ use crate::tox::read_fasta;
 use std::collections::HashMap;
 use std::error::Error;
 use std::vec;
+use tch::Device::Cpu;
 use tch::{Device, Tensor, nn, nn::Module, nn::OptimizerConfig};
 
 /*
@@ -73,10 +74,11 @@ impl DNAencoder {
                 opt.zero_grad();
                 let output = autoencoder.forward(&traindata);
                 let loss = mse_loss(&output, &traindata);
+                let lossvalue = loss.to_kind(tch::Kind::Float).double_value(&[]);
                 loss.backward();
                 opt.step();
                 if epoch % 10 == 0 || epoch == 1 {
-                    println!("Epoch [{}/{}]", epoch, epochs);
+                    println!("Epoch [{}/{}/{}]", epoch, epochs, lossvalue);
                 }
             }
         }
