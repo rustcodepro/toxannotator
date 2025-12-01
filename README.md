@@ -23,11 +23,14 @@ Commands:
   toxsummarize     Summarize the strains across the Toxodb
   protein-plotter  Plot the protein coding regions
   protein-tensor   Prepare the protein tensor for the machine and deep learning
+  extract-seq      extract the sequences from the annotation
+  extract-plot     plot the exons or the cds for the regions
   help             Print this message or the help of the given subcommand(s)
 
 Options:
   -h, --help     Print help
   -V, --version  Print version
+
 
 ```
 
@@ -76,5 +79,31 @@ Options:
 
 ```
 
+```
+extract the sequences from the annotation
+
+Usage: toxannotator extract-seq <ANNOTATIONFILE> <FASTAFILE>
+
+Arguments:
+  <ANNOTATIONFILE>  path to the annotation file
+  <FASTAFILE>       path to the fasta file
+
+Options:
+  -h, --help  Print help
+```
+
+```
+plot the exons or the cds for the regions
+
+Usage: toxannotator extract-plot <ANNOTATIONFILE> <FASTAFILE> <IDSFILE>
+
+Arguments:
+  <ANNOTATIONFILE>  file to the annotation
+  <FASTAFILE>       fasta file for the genome
+  <IDSFILE>         idsfile
+
+Options:
+  -h, --help  Print help
+```
 Gaurav Sablok \
 codeprog@icloud.com

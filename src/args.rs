@@ -46,15 +46,20 @@ pub enum Commands {
         /// input file for the tensor
         inputfile: String,
     },
-    /// prepare the encoder for the DNA sequences
-    DNAEncoder {
-        /// input file fasta
-        inputfastafile: String,
-        /// inputdimension
-        inputdim: i64,
-        ///bottleneck dimension
-        bottleneck: i64,
-        /// epochs
-        epochs: i64,
+    /// extract the sequences from the annotation
+    ExtractSeq {
+        /// path to the annotation file
+        annotationfile: String,
+        /// path to the fasta file
+        fastafile: String,
+    },
+    /// plot the exons or the cds for the regions
+    ExtractPlot {
+        /// file to the annotation
+        annotationfile: String,
+        /// fasta file for the genome
+        fastafile: String,
+        /// idsfile
+        idsfile: String,
     },
 }

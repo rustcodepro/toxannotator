@@ -56,6 +56,34 @@ pub struct ToxSeq {
 }
 
 #[derive(Debug, Clone, PartialOrd, PartialEq)]
-pub struct DNAencoder {
-    pub pathfile: String,
+pub struct SeqStruct {
+    pub pathfile1: String,
+    pub pathfile2: String,
+}
+
+#[derive(Debug, Clone, PartialOrd, PartialEq)]
+pub struct SeqInfo {
+    pub name: String,
+    pub protein_coding: Vec<(usize, usize)>,
+    pub exon: Vec<(usize, usize)>,
+    pub cds: Vec<(usize, usize)>,
+    pub three_prime: Vec<(usize, usize)>,
+    pub five_prime: Vec<(usize, usize)>,
+}
+
+#[derive(Debug, Clone, PartialOrd, PartialEq)]
+pub struct SeqExtract {
+    pub name: String,
+    pub protein_coding: Vec<(usize, usize, String)>,
+    pub exon: Vec<(usize, usize, String)>,
+    pub cds: Vec<(usize, usize, String)>,
+    pub three_prime: Vec<(usize, usize, String)>,
+    pub five_prime: Vec<(usize, usize, String)>,
+}
+
+#[derive(Debug, Clone, PartialOrd, PartialEq)]
+pub struct Extractplot {
+    pub pathfile1: String,
+    pub pathfile2: String,
+    pub pathfile3: String,
 }

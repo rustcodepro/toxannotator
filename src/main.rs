@@ -1,11 +1,13 @@
 mod args;
-mod encoder;
+mod extractplot;
 mod proteinplotter;
+mod seqseq;
 mod structtox;
 mod tensor;
 mod tox;
-use self::structtox::DNAencoder;
+use self::structtox::Extractplot;
 use self::structtox::PathFile;
+use self::structtox::SeqStruct;
 use self::structtox::ToxPath;
 use crate::args::CommandParse;
 use crate::args::Commands;
@@ -68,18 +70,29 @@ fn main() {
             let _ = command.padded_tensor();
             println!("The padded tensor have been written:{:?}", command);
         }
-        Commands::DNAEncoder {
-            inputfastafile,
-            inputdim,
-            bottleneck,
-            epochs,
+        Commands::ExtractSeq {
+            annotationfile,
+            fastafile,
         } => {
-            let filepath = DNAencoder {
-                pathfile: inputfastafile.to_string(),
+            let filepathread = SeqStruct {
+                pathfile1: annotationfile.clone(),
+                pathfile2: fastafile.clone(),
             };
-            let command =
-                Some(filepath.run_encoder(inputfastafile, *inputdim, *bottleneck, *epochs));
-            println!("The command has finished:{:?}", command)
+            let command = filepathread.extractspecific().unwrap();
+            println!("The file annotation write has been completed:{:?}", command);
+        }
+        Commands::ExtractPlot {
+            annotationfile,
+            fastafile,
+            idsfile,
+        } => {
+            let filepathread = Extractplot {
+                pathfile1: annotationfile.clone(),
+                pathfile2: fastafile.clone(),
+                pathfile3: idsfile.clone(),
+            };
+            let command = filepathread.extractspecific().unwrap();
+            println!("The command has finished:{:?}", command);
         }
     }
 }
