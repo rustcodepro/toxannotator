@@ -1,6 +1,4 @@
 use crate::structtox::ToxPath;
-use crate::structtox::ToxSeq;
-use crate::tox::read_fasta;
 use plotpy::Barplot;
 use plotpy::Plot;
 use std::error::Error;
@@ -16,7 +14,7 @@ comparative annotation plotters
 */
 
 impl ToxPath {
-    pub fn proteinplotter(&self) -> Result<(), Box<dyn Error>> {
+    pub fn proteinplotter(&self) -> Result<String, Box<dyn Error>> {
         let file1_open = File::open(&self.filepath1).expect("file not present");
         let file2_open = File::open(&self.filepath2).expect("file not present");
         let file1_read = BufReader::new(file1_open);
@@ -107,136 +105,6 @@ impl ToxPath {
 
         plot1.save("./plot1.svg")?;
 
-        Ok(())
-    }
-
-    pub fn unpackseq(
-        &self,
-        path1: &str,
-        path2: &str,
-    ) -> Result<
-        (
-            Vec<(String, String, usize, usize)>,
-            Vec<(String, String, usize, usize)>,
-        ),
-        Box<dyn Error>,
-    > {
-        let file1open = File::open(&self.filepath1).expect("file not present");
-        let file2open = File::open(&self.filepath2).expect("file not present");
-        let file1fasta = read_fasta(path1).unwrap();
-        let file2fasta = read_fasta(path2).unwrap();
-        let mut returnvec_1: Vec<(String, String, usize, usize)> = Vec::new();
-        let mut returnvec_2: Vec<(String, String, usize, usize)> = Vec::new();
-        let file1read = BufReader::new(file1open);
-        let file2read = BufReader::new(file2open);
-        let mut toxseq_1: Vec<ToxSeq> = Vec::new();
-        let mut toxseq_2: Vec<ToxSeq> = Vec::new();
-        for genomevel in file1read.lines() {
-            let linenew = genomevel.expect("line not present");
-            let linevec = linenew.split("\t").collect::<Vec<_>>();
-            toxseq_1.push(ToxSeq {
-                name: linevec[8].split(";").collect::<Vec<_>>()[0]
-                    .to_string()
-                    .replace("ID=", ""),
-                start: linevec[3].parse::<usize>().unwrap(),
-                stop: linevec[4].parse::<usize>().unwrap(),
-            });
-        }
-        for genomevel in file2read.lines() {
-            let linenew = genomevel.expect("line not present");
-            let linevec = linenew.split("\t").collect::<Vec<_>>();
-            toxseq_2.push(ToxSeq {
-                name: linevec[8].split(";").collect::<Vec<_>>()[0]
-                    .to_string()
-                    .replace("ID=", ""),
-                start: linevec[3].parse::<usize>().unwrap(),
-                stop: linevec[4].parse::<usize>().unwrap(),
-            });
-        }
-
-        for i in toxseq_1.iter() {
-            for (val, seq) in file1fasta.iter() {
-                if i.name == val.clone() {
-                    let value: (String, String, usize, usize) =
-                        (seq.id.clone(), seq.seq.clone(), i.start, i.stop);
-                    returnvec_1.push(value);
-                }
-            }
-        }
-        for i in toxseq_2.iter() {
-            for (val, seq) in file2fasta.iter() {
-                if i.name == val.clone() {
-                    let value: (String, String, usize, usize) =
-                        (seq.id.clone(), seq.seq.clone(), i.start, i.stop);
-                    returnvec_2.push(value);
-                }
-            }
-        }
-        Ok((returnvec_1, returnvec_2))
-    }
-
-    pub fn unpackseq_diff(
-        &self,
-        path1: &str,
-        path2: &str,
-    ) -> Result<
-        (
-            Vec<(String, String, usize, usize)>,
-            Vec<(String, String, usize, usize)>,
-        ),
-        Box<dyn Error>,
-    > {
-        let file1open = File::open(&self.filepath1).expect("file not present");
-        let file2open = File::open(&self.filepath2).expect("file not present");
-        let file1fasta = read_fasta(path1).unwrap();
-        let file2fasta = read_fasta(path2).unwrap();
-        let mut returnvec_1: Vec<(String, String, usize, usize)> = Vec::new();
-        let mut returnvec_2: Vec<(String, String, usize, usize)> = Vec::new();
-        let file1read = BufReader::new(file1open);
-        let file2read = BufReader::new(file2open);
-        let mut toxseq_1: Vec<ToxSeq> = Vec::new();
-        let mut toxseq_2: Vec<ToxSeq> = Vec::new();
-        for genomevel in file1read.lines() {
-            let linenew = genomevel.expect("line not present");
-            let linevec = linenew.split("\t").collect::<Vec<_>>();
-            toxseq_1.push(ToxSeq {
-                name: linevec[8].split(";").collect::<Vec<_>>()[0]
-                    .to_string()
-                    .replace("ID=", ""),
-                start: linevec[3].parse::<usize>().unwrap(),
-                stop: linevec[4].parse::<usize>().unwrap(),
-            });
-        }
-        for genomevel in file2read.lines() {
-            let linenew = genomevel.expect("line not present");
-            let linevec = linenew.split("\t").collect::<Vec<_>>();
-            toxseq_2.push(ToxSeq {
-                name: linevec[8].split(";").collect::<Vec<_>>()[0]
-                    .to_string()
-                    .replace("ID=", ""),
-                start: linevec[3].parse::<usize>().unwrap(),
-                stop: linevec[4].parse::<usize>().unwrap(),
-            });
-        }
-
-        for i in toxseq_1.iter() {
-            for (val, seq) in file1fasta.iter() {
-                if i.name != val.clone() {
-                    let value: (String, String, usize, usize) =
-                        (seq.id.clone(), seq.seq.clone(), i.start, i.stop);
-                    returnvec_1.push(value);
-                }
-            }
-        }
-        for i in toxseq_2.iter() {
-            for (val, seq) in file2fasta.iter() {
-                if i.name != val.clone() {
-                    let value: (String, String, usize, usize) =
-                        (seq.id.clone(), seq.seq.clone(), i.start, i.stop);
-                    returnvec_2.push(value);
-                }
-            }
-        }
-        Ok((returnvec_1, returnvec_2))
+        Ok("The results have been written".to_string())
     }
 }

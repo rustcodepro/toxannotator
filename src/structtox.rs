@@ -49,13 +49,6 @@ pub struct PathFile {
 }
 
 #[derive(Debug, Clone, PartialOrd, PartialEq)]
-pub struct ToxSeq {
-    pub name: String,
-    pub start: usize,
-    pub stop: usize,
-}
-
-#[derive(Debug, Clone, PartialOrd, PartialEq)]
 pub struct SeqStruct {
     pub pathfile1: String,
     pub pathfile2: String,
@@ -85,5 +78,41 @@ pub struct SeqExtract {
 pub struct Extractplot {
     pub pathfile1: String,
     pub pathfile2: String,
-    pub pathfile3: String,
+}
+
+#[derive(Debug, Clone, PartialOrd, PartialEq)]
+pub struct ProteinCompareExtract {
+    pub pathfile1: String,
+    pub pathfile2: String,
+}
+
+#[derive(Debug, Clone, PartialOrd, PartialEq)]
+pub struct ProteinEqual {
+    pub name: String,
+    pub start: usize,
+    pub stop: usize,
+    pub strand: String,
+}
+
+#[derive(Debug, Clone, PartialOrd, PartialEq)]
+pub struct ProteomeRest {
+    pub name1: String,
+    pub name2: String,
+    pub start1: usize,
+    pub start2: usize,
+    pub stop1: usize,
+    pub stop2: usize,
+    pub strand1: String,
+    pub strand2: String,
+}
+
+#[derive(Debug, Clone, PartialOrd, PartialEq)]
+pub struct GenomeTable {
+    pub name: String,
+    pub start1: usize,
+    pub start2: usize,
+    pub end1: usize,
+    pub end2: usize,
+    pub startdifference: String,
+    pub enddifference: String,
 }

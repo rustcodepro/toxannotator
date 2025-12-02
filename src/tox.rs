@@ -15,8 +15,7 @@ codeprog@icloud.com
 - a complete tox annotator for comparative genomics.
 */
 
-#[tokio::main]
-pub async fn toxsummarize(
+pub fn toxsummarize(
     inputpath1: &str,
     inputpath2: &str,
     overlapwindow: &str,
@@ -123,10 +122,6 @@ pub async fn toxsummarize(
     let overlap_region = overlapwindow.parse::<usize>().unwrap();
     let comparegenes: Vec<(Vec<ToxCompare>, Vec<ToxCompare>)> = Vec::new();
 
-    /*
-    a single loop iteration for the comparison of the struct based comparison,
-    a linear implementation of the blanket traits.
-    */
     for i in file1_struct.iter() {
         let mut valone: Vec<ToxCompare> = Vec::new();
         let mut valtwo: Vec<ToxCompare> = Vec::new();
@@ -164,10 +159,6 @@ pub async fn toxsummarize(
         "The total protein coding regions in the file2: {}",
         total_protein_count_2
     );
-
-    /*
-    implementing a json based file structure so that it can easily used in javascript.
-    */
 
     let mut filewrite = File::open("comparison.txt").expect("file not present");
     for i in comparegenes.iter() {
