@@ -8,7 +8,6 @@ use std::io::{BufRead, BufReader};
 /*
 Gaurav Sablok
 codeprog@icloud.com
-
 comparative annotation plotters
 
 */
@@ -82,8 +81,6 @@ impl ToxPath {
             .iter()
             .map(|x| x.1)
             .collect::<Vec<_>>();
-
-        print!("{:?}", lengthnames_2);
 
         let mut bar = Barplot::new();
         bar.set_horizontal(true)

@@ -26,6 +26,19 @@ pub enum Commands {
         /// threads
         threads: String,
     },
+    /// Compare protein coding coordinates and sequences also
+    ProteinCompareSeqCommand {
+        /// path to the first gff file
+        gfffile1: String,
+        /// path to the second gff file
+        gfffile2: String,
+        /// fasta1 file
+        fastafile_1: String,
+        /// fasta2 file
+        fastafile_2: String,
+        /// threads
+        threads: String,
+    },
     /// Plot the protein coding regions
     ProteinPlotter {
         /// input file 1

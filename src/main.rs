@@ -1,5 +1,6 @@
 mod args;
 mod proteincompare;
+mod proteincompareseq;
 mod proteinplotter;
 mod seqseq;
 mod structtox;
@@ -7,6 +8,7 @@ mod tensor;
 use self::structtox::Extractplot;
 use self::structtox::PathFile;
 use self::structtox::ProteinCompareExtract;
+use self::structtox::ProteinCompareExtractSeq;
 use self::structtox::ToxPath;
 use crate::args::CommandParse;
 use crate::args::Commands;
@@ -91,6 +93,31 @@ fn main() {
                     pathfile2: gfffile2.clone(),
                 };
                 let filepathrun = filepath.proteincompare().unwrap();
+                println!(
+                    "The file for the comparison for the proteome has been written: {:?}",
+                    filepathrun
+                );
+            });
+        }
+        Commands::ProteinCompareSeqCommand {
+            gfffile1,
+            gfffile2,
+            fastafile_1,
+            fastafile_2,
+            threads,
+        } => {
+            let pool = rayon::ThreadPoolBuilder::new()
+                .num_threads(threads.parse::<usize>().unwrap())
+                .build()
+                .unwrap();
+            pool.install(|| {
+                let filepath = ProteinCompareExtractSeq {
+                    pathfile1: gfffile1.clone(),
+                    pathfile2: gfffile2.clone(),
+                    fastafile1: fastafile_1.clone(),
+                    fastafile2: fastafile_2.clone(),
+                };
+                let filepathrun = filepath.proteincompareseq().unwrap();
                 println!(
                     "The file for the comparison for the proteome has been written: {:?}",
                     filepathrun

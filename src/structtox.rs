@@ -39,11 +39,42 @@ pub struct ProteinCompareExtract {
 }
 
 #[derive(Debug, Clone, PartialOrd, PartialEq)]
+pub struct ProteinCompareExtractSeq {
+    pub pathfile1: String,
+    pub pathfile2: String,
+    pub fastafile1: String,
+    pub fastafile2: String,
+}
+
+#[derive(Debug, Clone, PartialOrd, PartialEq)]
 pub struct ProteinEqual {
     pub name: String,
     pub start: usize,
     pub stop: usize,
     pub strand: String,
+}
+
+#[derive(Debug, Clone, PartialOrd, PartialEq)]
+pub struct ProteinEqualSeq {
+    pub name: String,
+    pub start: usize,
+    pub stop: usize,
+    pub strand: String,
+    pub seq: String,
+}
+
+#[derive(Debug, Clone, PartialOrd, PartialEq)]
+pub struct ProteinEqualSeqCompare {
+    pub name1: String,
+    pub name2: String,
+    pub start1: usize,
+    pub start2: usize,
+    pub stop1: usize,
+    pub stop2: usize,
+    pub strand1: usize,
+    pub strand2: usize,
+    pub seq1: String,
+    pub seq2: String,
 }
 
 #[derive(Debug, Clone, PartialOrd, PartialEq)]
@@ -65,6 +96,8 @@ pub struct GenomeTable {
     pub start2: usize,
     pub end1: usize,
     pub end2: usize,
+    pub strand1: String,
+    pub strand2: String,
     pub startdifference: String,
     pub enddifference: String,
 }

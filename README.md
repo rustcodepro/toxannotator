@@ -10,7 +10,6 @@ cargo build
 
 ```
 _____                                                  _             _                  
-_____                                                  _             _                  
 |_   _|   ___   __  __   __ _   _ __    _ __     ___   | |_    __ _  | |_    ___    _ __ 
  | |    / _ \  \ \/ /  / _` | | '_ \  | '_ \   / _ \  | __|  / _` | | __|  / _ \  | '__|
  | |   | (_) |  >  <  | (_| | | | | | | | | | | (_) | | |_  | (_| | | |_  | (_) | | |   
@@ -26,15 +25,17 @@ A toxodb annotator.
 Usage: toxannotator <COMMAND>
 
 Commands:
-protein-plotter  Plot the protein coding regions
-protein-tensor   Prepare the protein tensor for the machine and deep learning
-extract-seq      plot the specific ids information
-protein-compare  Only compare protein coding
-help             Print this message or the help of the given subcommand(s)
+protein-compare              Only compare protein coding
+protein-compare-seq-command  Compare protein coding coordinates and sequences also
+protein-plotter              Plot the protein coding regions
+protein-tensor               Prepare the protein tensor for the machine and deep learning
+extract-seq                  plot the specific ids information
+help                         Print this message or the help of the given subcommand(s)
 
 Options:
 -h, --help     Print help
 -V, --version  Print version
+
 
 ```
 
@@ -52,9 +53,29 @@ Options:
   
 toxannotator protein-compare ./testfiles/a1.gff ./testfiles/b1.gff  4
 
-GeneName	Start1	Start2	End1	End2	Start Difference	End Difference
-TGME49_200010	2245476	2245476	2249210	2248187	0	1023
+commonggenes-same-strand.txt
+TGME49_200010	TGME49_200010	2245476	2245476	2249210	2248187	-	-
 
+GeneName	Start1	Start2	End1	End2	Strand1	Strand2	Start Difference	End Difference
+TGME49_200010	2245476	2245476	2249210	2248187	-	-	0	1023
+
+```
+
+```
+
+Compare protein coding coordinates and sequences also
+
+Usage: toxannotator protein-compare-seq-command <GFFFILE1> <GFFFILE2> <FASTAFILE_1> <FASTAFILE_2> <THREADS>
+
+Arguments:
+  <GFFFILE1>     path to the first gff file
+  <GFFFILE2>     path to the second gff file
+  <FASTAFILE_1>  fasta1 file
+  <FASTAFILE_2>  fasta2 file
+  <THREADS>      threads
+
+Options:
+  -h, --help  Print help
 ```
 
 ```
@@ -70,8 +91,7 @@ Arguments:
 Options:
   -h, --help  Print help
   
-toxannotator  extract-plot ./testfiles/a1.gff ./testfiles/id.test 4
-
+toxannotator protein-plotter ./testfiles/a1.gff ./testfiles/b1.gff 4
 ```
 
 ```
@@ -89,18 +109,19 @@ Options:
 ```
 
 ```
-extract the sequences from the annotation
+plot the specific ids information
 
-Usage: toxannotator extract-seq <ANNOTATIONFILE> <FASTAFILE> <THREADS>
+Usage: toxannotator extract-seq <ANNOTATIONFILE> <IDSFILE> <THREADS>
 
 Arguments:
-  <ANNOTATIONFILE>  path to the annotation file
-  <FASTAFILE>       path to the fasta file
+  <ANNOTATIONFILE>  file to the annotation
+  <IDSFILE>         idsfile
   <THREADS>         threads
 
 Options:
   -h, --help  Print help
-
+  
+toxannotator extract-seq ./testfiles/a1.gff ./testfiles/id.test 4
 ```
 Gaurav Sablok \
 codeprog@icloud.com
