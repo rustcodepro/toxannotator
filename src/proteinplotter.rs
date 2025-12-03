@@ -27,12 +27,14 @@ impl ToxPath {
                 continue;
             } else if !line.starts_with("#") {
                 let linevec = line.split("\t").collect::<Vec<_>>();
-                let inserttuple: (String, usize, usize) = (
-                    linevec[0].to_string(),
-                    linevec[3].parse::<usize>().unwrap(),
-                    linevec[4].parse::<usize>().unwrap(),
-                );
-                file1vec.push(inserttuple);
+                if linevec[2] == "protein_coding_gene" {
+                    let inserttuple: (String, usize, usize) = (
+                        linevec[8].split(";").collect::<Vec<_>>()[0].replace("ID=", ""),
+                        linevec[3].parse::<usize>().unwrap(),
+                        linevec[4].parse::<usize>().unwrap(),
+                    );
+                    file1vec.push(inserttuple);
+                }
             }
         }
         for i in file2_read.lines() {
@@ -41,14 +43,17 @@ impl ToxPath {
                 continue;
             } else if !line.starts_with("#") {
                 let linevec = line.split("\t").collect::<Vec<_>>();
-                let inserttuple: (String, usize, usize) = (
-                    linevec[0].to_string(),
-                    linevec[3].parse::<usize>().unwrap(),
-                    linevec[4].parse::<usize>().unwrap(),
-                );
-                file2vec.push(inserttuple);
+                if linevec[2] == "protein_coding_gene" {
+                    let inserttuple: (String, usize, usize) = (
+                        linevec[8].split(";").collect::<Vec<_>>()[0].replace("ID=", ""),
+                        linevec[3].parse::<usize>().unwrap(),
+                        linevec[4].parse::<usize>().unwrap(),
+                    );
+                    file2vec.push(inserttuple);
+                }
             }
         }
+
         let mut filecoordinates_1_plot: Vec<(String, usize)> = Vec::new();
         let mut filecoordinates_2_plot: Vec<(String, usize)> = Vec::new();
         for i in file1vec.iter() {
@@ -77,6 +82,8 @@ impl ToxPath {
             .iter()
             .map(|x| x.1)
             .collect::<Vec<_>>();
+
+        print!("{:?}", lengthnames_2);
 
         let mut bar = Barplot::new();
         bar.set_horizontal(true)

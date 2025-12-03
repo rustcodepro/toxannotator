@@ -10,6 +10,7 @@ cargo build
 
 ```
 _____                                                  _             _                  
+_____                                                  _             _                  
 |_   _|   ___   __  __   __ _   _ __    _ __     ___   | |_    __ _  | |_    ___    _ __ 
  | |    / _ \  \ \/ /  / _` | | '_ \  | '_ \   / _ \  | __|  / _` | | __|  / _ \  | '__|
  | |   | (_) |  >  <  | (_| | | | | | | | | | | (_) | | |_  | (_| | | |_  | (_) | | |   
@@ -25,103 +26,15 @@ A toxodb annotator.
 Usage: toxannotator <COMMAND>
 
 Commands:
-toxsummarize     Summarize the strains across the Toxodb
 protein-plotter  Plot the protein coding regions
 protein-tensor   Prepare the protein tensor for the machine and deep learning
-extract-seq      extract the sequences from the annotation
-extract-plot     plot the exons or the cds for the regions
+extract-seq      plot the specific ids information
 protein-compare  Only compare protein coding
 help             Print this message or the help of the given subcommand(s)
 
 Options:
 -h, --help     Print help
 -V, --version  Print version
-s
-
-```
-
-```
-Summarize the strains across the Toxodb
-
-Usage: toxannotator toxsummarize <FILEPATHINPUT_STRAIN1> <FILEPATHINPUT_STRAIN2> <OVERLAPWINDOW> <READFASTA1> <READFASTA2> <THREADS>
-
-Arguments:
-  <FILEPATHINPUT_STRAIN1>  inputfile1
-  <FILEPATHINPUT_STRAIN2>  inputfile2
-  <OVERLAPWINDOW>          overlapwindow
-  <READFASTA1>             readfasta1
-  <READFASTA2>             readfasta2
-  <THREADS>                threads
-
-Options:
-  -h, --help  Print help
-
-
-```
-
-```
-Plot the protein coding regions
-
-Usage: toxannotator protein-plotter <INPUTFILE1> <INPUTFILE2> <INPUTFASTAFILE1> <INPUTFASTAFILE2> <THREADS>
-
-Arguments:
-  <INPUTFILE1>       input file 1
-  <INPUTFILE2>       input file 2
-  <INPUTFASTAFILE1>  input fasta file 1
-  <INPUTFASTAFILE2>  input fasta file 2
-  <THREADS>          threads
-
-Options:
-  -h, --help  Print help
-  
-  toxannotator  protein-plotter ./testfiles/a1.gff ./testfiles/b1.gff 4
-```
-
-```
-Prepare the protein tensor for the machine and deep learning
-
-Usage: toxannotator protein-tensor <INPUTFILE> <THREADS>
-
-Arguments:
-  <INPUTFILE>  input file for the tensor
-  <THREADS>    threads
-
-Options:
-  -h, --help  Print help
-
-
-```
-
-```
-extract the sequences from the annotation
-
-Usage: toxannotator extract-seq <ANNOTATIONFILE> <FASTAFILE> <THREADS>
-
-Arguments:
-  <ANNOTATIONFILE>  path to the annotation file
-  <FASTAFILE>       path to the fasta file
-  <THREADS>         threads
-
-Options:
-  -h, --help  Print help
-
-```
-
-```
-plot the exons or the cds for the regions
-
-Usage: toxannotator extract-plot <ANNOTATIONFILE> <IDSFILE> <THREADS>
-
-Arguments:
-  <ANNOTATIONFILE>  file to the annotation
-  <IDSFILE>         idsfile
-  <THREADS>         threads
-
-Options:
-  -h, --help  Print help
-
-  
-toxannotator  extract-plot ./testfiles/a1.gff ./testfiles/id.test 4
 
 ```
 
@@ -141,6 +54,52 @@ toxannotator protein-compare ./testfiles/a1.gff ./testfiles/b1.gff  4
 
 GeneName	Start1	Start2	End1	End2	Start Difference	End Difference
 TGME49_200010	2245476	2245476	2249210	2248187	0	1023
+
+```
+
+```
+Plot the protein coding regions
+
+Usage: toxannotator protein-plotter <INPUTFILE1> <INPUTFILE2> <THREADS>
+
+Arguments:
+  <INPUTFILE1>  input file 1
+  <INPUTFILE2>  input file 2
+  <THREADS>     threads
+
+Options:
+  -h, --help  Print help
+  
+toxannotator  extract-plot ./testfiles/a1.gff ./testfiles/id.test 4
+
+```
+
+```
+Prepare the protein tensor for the machine and deep learning
+
+Usage: toxannotator protein-tensor <INPUTFILE> <THREADS>
+
+Arguments:
+  <INPUTFILE>  input file for the tensor
+  <THREADS>    threads
+
+Options:
+  -h, --help  Print help
+
+```
+
+```
+extract the sequences from the annotation
+
+Usage: toxannotator extract-seq <ANNOTATIONFILE> <FASTAFILE> <THREADS>
+
+Arguments:
+  <ANNOTATIONFILE>  path to the annotation file
+  <FASTAFILE>       path to the fasta file
+  <THREADS>         threads
+
+Options:
+  -h, --help  Print help
 
 ```
 Gaurav Sablok \

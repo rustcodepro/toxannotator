@@ -1,8 +1,11 @@
+use crate::structtox::FastaStruct;
 use crate::structtox::PathFile;
-use crate::tox::read_fasta;
+use std::collections::HashMap;
 use std::error::Error;
 use std::fs::File;
 use std::io::Write;
+use std::io::{BufRead, BufReader};
+use std::path::Path;
 
 /*
  Gaurav Sablok
@@ -250,4 +253,44 @@ pub fn proteinencoder(seq: &str) -> Vec<Vec<f32>> {
         }
     }
     vectorchar
+}
+
+pub fn read_fasta<P: AsRef<Path>>(path: P) -> std::io::Result<HashMap<String, FastaStruct>> {
+    let file = File::open(path)?;
+    let reader = BufReader::new(file);
+    let mut records = HashMap::new();
+    let mut current_id = String::new();
+    let mut current_sequence = String::new();
+    for line in reader.lines() {
+        let line = line?;
+        if line.starts_with('>') {
+            if !current_id.is_empty() {
+                records.insert(
+                    current_id.clone().clone().split("|").collect::<Vec<_>>()[0].to_string(),
+                    FastaStruct {
+                        id: current_id.clone().split("|").collect::<Vec<_>>()[0].to_string(),
+                        seq: current_sequence.clone(),
+                        tag: current_id.clone().split("|").collect::<Vec<_>>()[2].to_string(),
+                    },
+                );
+                current_sequence.clear();
+            }
+            current_id = line[1..].to_string();
+        } else {
+            current_sequence.push_str(&line);
+        }
+    }
+
+    if !current_id.is_empty() {
+        records.insert(
+            current_id.clone().split("|").collect::<Vec<_>>()[0].to_string(),
+            FastaStruct {
+                id: current_id.clone().split("|").collect::<Vec<_>>()[0].to_string(),
+                seq: current_sequence,
+                tag: current_id.clone().split("|").collect::<Vec<_>>()[2].to_string(),
+            },
+        );
+    }
+
+    Ok(records)
 }

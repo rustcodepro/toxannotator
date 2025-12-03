@@ -17,18 +17,12 @@ pub struct CommandParse {
 
 #[derive(Subcommand, Debug)]
 pub enum Commands {
-    /// Summarize the strains across the Toxodb
-    Toxsummarize {
-        /// inputfile1
-        filepathinput_strain1: String,
-        /// inputfile2
-        filepathinput_strain2: String,
-        /// overlapwindow
-        overlapwindow: String,
-        /// readfasta1
-        readfasta1: String,
-        /// readfasta2
-        readfasta2: String,
+    /// Only compare protein coding
+    ProteinCompare {
+        /// path to the first gff file
+        gfffile1: String,
+        /// path to the second gff file
+        gfffile2: String,
         /// threads
         threads: String,
     },
@@ -48,30 +42,12 @@ pub enum Commands {
         /// threads
         threads: String,
     },
-    /// extract the sequences from the annotation
+    /// plot the specific ids information
     ExtractSeq {
-        /// path to the annotation file
-        annotationfile: String,
-        /// path to the fasta file
-        fastafile: String,
-        /// threads
-        threads: String,
-    },
-    /// plot the exons or the cds for the regions
-    ExtractPlot {
         /// file to the annotation
         annotationfile: String,
         /// idsfile
         idsfile: String,
-        /// threads
-        threads: String,
-    },
-    /// Only compare protein coding
-    ProteinCompare {
-        /// path to the first gff file
-        gfffile1: String,
-        /// path to the second gff file
-        gfffile2: String,
         /// threads
         threads: String,
     },

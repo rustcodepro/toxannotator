@@ -1,22 +1,15 @@
 mod args;
-mod extractplot;
 mod proteincompare;
 mod proteinplotter;
 mod seqseq;
 mod structtox;
 mod tensor;
-mod tox;
 use self::structtox::Extractplot;
 use self::structtox::PathFile;
 use self::structtox::ProteinCompareExtract;
-use self::structtox::SeqStruct;
 use self::structtox::ToxPath;
 use crate::args::CommandParse;
 use crate::args::Commands;
-use crate::tox::compare_seq;
-use crate::tox::compare_seq_annotation;
-use crate::tox::toxsummarize;
-use crate::tox::un_compare_seq;
 use clap::Parser;
 use figlet_rs::FIGfont;
 
@@ -33,31 +26,6 @@ fn main() {
 
     let argparse = CommandParse::parse();
     match &argparse.command {
-        Commands::Toxsummarize {
-            filepathinput_strain1,
-            filepathinput_strain2,
-            overlapwindow,
-            readfasta1,
-            readfasta2,
-            threads,
-        } => {
-            let pool = rayon::ThreadPoolBuilder::new()
-                .num_threads(threads.parse::<usize>().unwrap())
-                .build()
-                .unwrap();
-            pool.install(|| {
-                let toxsummarizer =
-                    toxsummarize(filepathinput_strain1, filepathinput_strain2, overlapwindow)
-                        .unwrap();
-                let compareseq_output = compare_seq(readfasta1, readfasta1).unwrap();
-                let compareseqanno_output = compare_seq_annotation(readfasta1, readfasta2).unwrap();
-                let uncompareseqoutput = un_compare_seq(readfasta1, readfasta2).unwrap();
-                println!(
-                    "The command has finished:{}\t{}\t{}\t{}",
-                    toxsummarizer, compareseq_output, compareseqanno_output, uncompareseqoutput
-                );
-            });
-        }
         Commands::ProteinPlotter {
             inputfile1,
             inputfile2,
@@ -91,24 +59,6 @@ fn main() {
             });
         }
         Commands::ExtractSeq {
-            annotationfile,
-            fastafile,
-            threads,
-        } => {
-            let pool = rayon::ThreadPoolBuilder::new()
-                .num_threads(threads.parse::<usize>().unwrap())
-                .build()
-                .unwrap();
-            pool.install(|| {
-                let filepathread = SeqStruct {
-                    pathfile1: annotationfile.clone(),
-                    pathfile2: fastafile.clone(),
-                };
-                let command = filepathread.extractspecific().unwrap();
-                println!("The file annotation write has been completed:{:?}", command);
-            });
-        }
-        Commands::ExtractPlot {
             annotationfile,
             idsfile,
             threads,

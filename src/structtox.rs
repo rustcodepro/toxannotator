@@ -1,40 +1,8 @@
 #[derive(Debug, Clone, PartialOrd, PartialEq)]
-pub struct ToxSummarize {
-    pub name: String,
-    pub database: String,
-    pub annotation: String,
-    pub start: usize,
-    pub stop: usize,
-    pub strand: String,
-    pub id: String,
-    pub namegene: String,
-    pub description: String,
-}
-
-#[derive(Debug, Clone, PartialOrd, PartialEq)]
 pub struct FastaStruct {
     pub id: String,
     pub seq: String,
     pub tag: String,
-}
-
-#[derive(Debug, Clone, PartialOrd, PartialEq)]
-pub struct CompareSeq {
-    pub id_1: String,
-    pub id_1_seq: String,
-    pub id_2: String,
-    pub id_2_seq: String,
-}
-
-#[derive(Debug, Clone, PartialOrd, PartialEq)]
-pub struct ToxCompare {
-    pub name: String,
-    pub annotation: String,
-    pub start: usize,
-    pub stop: usize,
-    pub strand: String,
-    pub id: String,
-    pub namegene: String,
 }
 
 #[derive(Debug, Clone, PartialOrd, PartialEq)]
@@ -49,12 +17,6 @@ pub struct PathFile {
 }
 
 #[derive(Debug, Clone, PartialOrd, PartialEq)]
-pub struct SeqStruct {
-    pub pathfile1: String,
-    pub pathfile2: String,
-}
-
-#[derive(Debug, Clone, PartialOrd, PartialEq)]
 pub struct SeqInfo {
     pub name: String,
     pub protein_coding: Vec<(usize, usize)>,
@@ -62,16 +24,6 @@ pub struct SeqInfo {
     pub cds: Vec<(usize, usize)>,
     pub three_prime: Vec<(usize, usize)>,
     pub five_prime: Vec<(usize, usize)>,
-}
-
-#[derive(Debug, Clone, PartialOrd, PartialEq)]
-pub struct SeqExtract {
-    pub name: String,
-    pub protein_coding: Vec<(usize, usize, String)>,
-    pub exon: Vec<(usize, usize, String)>,
-    pub cds: Vec<(usize, usize, String)>,
-    pub three_prime: Vec<(usize, usize, String)>,
-    pub five_prime: Vec<(usize, usize, String)>,
 }
 
 #[derive(Debug, Clone, PartialOrd, PartialEq)]
