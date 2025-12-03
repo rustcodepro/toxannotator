@@ -2,6 +2,12 @@
 name = "toxannotator"
 version = "0.1.0"
 edition = "2024"
+readme = "README.md"
+license = "MIT"
+authors = ["Gaurav Sablok <codeprog@icloud.com>"]
+description = "tox annotator for ToxDB"
+homepage = "https://github.com/rustcodepro/toxannotator"
+repository = "https://github.com/rustcodepro/toxannotator"
 
 [dependencies]
 clap = { version = "4.5.53", features = ["derive"] }
