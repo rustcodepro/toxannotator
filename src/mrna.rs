@@ -24,43 +24,47 @@ impl PathmRNA {
         let mut mrnaread_2: Vec<MRNA> = Vec::new();
         for i in fileread_1.lines() {
             let line = i.expect("file not present");
-            let linevec = line.split("\t").collect::<Vec<_>>();
-            if linevec[2] == "mRNA" {
-                let nameinsert = linevec[8].split(";").collect::<Vec<_>>()[2]
-                    .to_string()
-                    .replace("Parent=", "");
-                let hashinsert = nameinsert.clone();
-                let startinsert: usize = linevec[3].parse::<usize>().unwrap();
-                let stopinsert: usize = linevec[4].parse::<usize>().unwrap();
-                let strandinsert: String = linevec[6].to_string();
-                mrnaread_1.push(MRNA {
-                    name: nameinsert,
-                    start: startinsert,
-                    stop: stopinsert,
-                    strand: strandinsert,
-                });
-                mrna_ids_1.insert(hashinsert);
+            if !line.starts_with("#") {
+                let linevec = line.split("\t").collect::<Vec<_>>();
+                if linevec[2] == "mRNA" {
+                    let nameinsert = linevec[8].split(";").collect::<Vec<_>>()[2]
+                        .to_string()
+                        .replace("Parent=", "");
+                    let hashinsert = nameinsert.clone();
+                    let startinsert: usize = linevec[3].parse::<usize>().unwrap();
+                    let stopinsert: usize = linevec[4].parse::<usize>().unwrap();
+                    let strandinsert: String = linevec[6].to_string();
+                    mrnaread_1.push(MRNA {
+                        name: nameinsert,
+                        start: startinsert,
+                        stop: stopinsert,
+                        strand: strandinsert,
+                    });
+                    mrna_ids_1.insert(hashinsert);
+                }
             }
         }
 
         for i in fileread_2.lines() {
             let line = i.expect("file not present");
             let linevec = line.split("\t").collect::<Vec<_>>();
-            if linevec[2] == "mRNA" {
-                let nameinsert = linevec[8].split(";").collect::<Vec<_>>()[2]
-                    .to_string()
-                    .replace("Parent=", "");
-                let hashinsert = nameinsert.clone();
-                let startinsert: usize = linevec[3].parse::<usize>().unwrap();
-                let stopinsert: usize = linevec[4].parse::<usize>().unwrap();
-                let strandinsert: String = linevec[6].to_string();
-                mrnaread_2.push(MRNA {
-                    name: nameinsert,
-                    start: startinsert,
-                    stop: stopinsert,
-                    strand: strandinsert,
-                });
-                mrna_ids_2.insert(hashinsert);
+            if !line.starts_with("#") {
+                if linevec[2] == "mRNA" {
+                    let nameinsert = linevec[8].split(";").collect::<Vec<_>>()[2]
+                        .to_string()
+                        .replace("Parent=", "");
+                    let hashinsert = nameinsert.clone();
+                    let startinsert: usize = linevec[3].parse::<usize>().unwrap();
+                    let stopinsert: usize = linevec[4].parse::<usize>().unwrap();
+                    let strandinsert: String = linevec[6].to_string();
+                    mrnaread_2.push(MRNA {
+                        name: nameinsert,
+                        start: startinsert,
+                        stop: stopinsert,
+                        strand: strandinsert,
+                    });
+                    mrna_ids_2.insert(hashinsert);
+                }
             }
         }
 
