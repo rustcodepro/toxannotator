@@ -1,14 +1,18 @@
 mod args;
+mod mrna;
 mod proteincompare;
 mod proteincompareseq;
 mod proteinplotter;
+mod seqcompare;
 mod seqseq;
 mod structtox;
 mod tensor;
 use self::structtox::Extractplot;
 use self::structtox::PathFile;
+use self::structtox::PathmRNA;
 use self::structtox::ProteinCompareExtract;
 use self::structtox::ProteinCompareExtractSeq;
+use self::structtox::SeqCompare;
 use self::structtox::ToxPath;
 use crate::args::CommandParse;
 use crate::args::Commands;
@@ -122,6 +126,46 @@ fn main() {
                     "The file for the comparison for the proteome has been written: {:?}",
                     filepathrun
                 );
+            });
+        }
+        Commands::ComparemRNA {
+            gff_1,
+            gff_2,
+            threads,
+        } => {
+            let pool = rayon::ThreadPoolBuilder::new()
+                .num_threads(threads.parse::<usize>().unwrap())
+                .build()
+                .unwrap();
+            pool.install(|| {
+                let filepath = PathmRNA {
+                    pathfile1: gff_1.clone(),
+                    pathfile2: gff_2.clone(),
+                };
+                let command = filepath.mrna_analysis().unwrap();
+                print!("The command has finished:{:?}", command);
+            });
+        }
+        Commands::CompareFastaGFF {
+            gff_1_input,
+            gff_2_input,
+            fasta_1_input,
+            fasta_2_input,
+            threads,
+        } => {
+            let command = rayon::ThreadPoolBuilder::new()
+                .num_threads(threads.parse::<usize>().unwrap())
+                .build()
+                .unwrap();
+            command.install(|| {
+                let filepath = SeqCompare {
+                    gff_1: gff_1_input.clone(),
+                    gff_2: gff_2_input.clone(),
+                    fasta_1: fasta_1_input.clone(),
+                    fasta_2: fasta_2_input.clone(),
+                };
+                let newcommand = filepath.seqcompare().unwrap();
+                print!("The command has finished:{:?}", newcommand);
             });
         }
     }

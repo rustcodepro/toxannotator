@@ -101,3 +101,45 @@ pub struct GenomeTable {
     pub startdifference: String,
     pub enddifference: String,
 }
+
+#[derive(Debug, Clone, PartialOrd, PartialEq)]
+pub struct MRNA {
+    pub name: String,
+    pub start: usize,
+    pub stop: usize,
+    pub strand: String,
+}
+
+#[derive(Debug, Clone, PartialOrd, PartialEq)]
+pub struct PathmRNA {
+    pub pathfile1: String,
+    pub pathfile2: String,
+}
+
+#[derive(Debug, Clone, PartialOrd, PartialEq)]
+pub struct ComparativemRNA {
+    pub name1: String,
+    pub name2: String,
+    pub start1: usize,
+    pub start2: usize,
+    pub stop1: usize,
+    pub stop2: usize,
+    pub strand1: String,
+    pub strand2: String,
+}
+
+#[derive(Debug, Clone, PartialOrd, PartialEq)]
+pub struct SeqCompare {
+    pub gff_1: String,
+    pub gff_2: String,
+    pub fasta_1: String,
+    pub fasta_2: String,
+}
+
+#[derive(Debug, Clone, PartialOrd, PartialEq)]
+pub struct CommonSeq {
+    pub name1: String,
+    pub name2: String,
+    pub seq1: String,
+    pub seq2: String,
+}

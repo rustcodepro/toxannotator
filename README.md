@@ -30,6 +30,8 @@ protein-compare-seq-command  Compare protein coding coordinates and sequences al
 protein-plotter              Plot the protein coding regions
 protein-tensor               Prepare the protein tensor for the machine and deep learning
 extract-seq                  plot the specific ids information
+comparem-rna                 compare mRNA annotations
+compare-fasta-gff            compare fasta and gff for the same and different ids and sequences
 help                         Print this message or the help of the given subcommand(s)
 
 Options:
@@ -123,5 +125,35 @@ Options:
   
 toxannotator extract-seq ./testfiles/a1.gff ./testfiles/id.test 4
 ```
+
+```
+compare mRNA annotations
+
+Usage: toxannotator comparem-rna <GFF_1> <GFF_2> <THREADS>
+
+Arguments:
+  <GFF_1>    path to the first gff
+  <GFF_2>    path to the second gff
+  <THREADS>  threads
+
+Options:
+  -h, --help  Print help
+```
+```
+compare fasta and gff for the same and different ids and sequences
+
+Usage: toxannotator compare-fasta-gff <GFF_1_INPUT> <GFF_2_INPUT> <FASTA_1_INPUT> <FASTA_2_INPUT> <THREADS>
+
+Arguments:
+  <GFF_1_INPUT>    path to the first gff
+  <GFF_2_INPUT>    path to the second gff
+  <FASTA_1_INPUT>  path to the first fasta
+  <FASTA_2_INPUT>  path to the second fasta
+  <THREADS>        threads
+
+Options:
+  -h, --help  Print help
+```
+
 Gaurav Sablok \
 codeprog@icloud.com

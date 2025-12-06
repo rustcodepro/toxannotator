@@ -64,4 +64,26 @@ pub enum Commands {
         /// threads
         threads: String,
     },
+    /// compare mRNA annotations
+    ComparemRNA {
+        /// path to the first gff
+        gff_1: String,
+        /// path to the second gff
+        gff_2: String,
+        /// threads
+        threads: String,
+    },
+    /// compare fasta and gff for the same and different ids and sequences
+    CompareFastaGFF {
+        /// path to the first gff
+        gff_1_input: String,
+        /// path to the second gff
+        gff_2_input: String,
+        /// path to the first fasta
+        fasta_1_input: String,
+        /// path to the second fasta
+        fasta_2_input: String,
+        /// threads
+        threads: String,
+    },
 }
