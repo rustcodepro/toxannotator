@@ -155,5 +155,14 @@ Options:
   -h, --help  Print help
 ```
 
+- To install windows version:
+
+```
+rustup component add llvm-tools
+rustup target add x86_64-pc-windows-msvc
+git clone https://github.com/IBCHgenomic/ensemblcov.git
+cd ensemblcov
+cargo xwin build --target x86_64-pc-windows-msvc
+
 Gaurav Sablok \
 codeprog@icloud.com
